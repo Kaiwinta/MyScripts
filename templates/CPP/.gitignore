@@ -1,0 +1,14 @@
+# Build files
+build/
+*.o
+
+# VS Code
+.vscode/
+
+# Debug files
+vgcore.*
+log.bin
+*.log
+
+#Executable
+DEFINE_NAME

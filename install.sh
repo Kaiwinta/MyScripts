@@ -22,3 +22,7 @@ echo "Setting up epitech-coding-style-checker"
 git clone git@github.com:Epitech/coding-style-checker.git ~/.epitech-coding-style-checker
 add_alias ~/.bashrc style "~/.epitech-coding-style-checker/coding-style.sh . ."
 add_alias ~/.zshrc style "~/.epitech-coding-style-checker/coding-style.sh . ."
+
+echo "Setting up init_project"
+add_alias ~/.bashrc init_project "./{path}/init_project.sh"
+add_alias ~/.zshrc init_project "./{path}/init_project.sh"
