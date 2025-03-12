@@ -39,5 +39,22 @@ if [[ -f Makefile ]]; then
     }
 fi
 
-git commit -m "$MESSAGE" || { echo "Error: git commit failed"; exit 1; }
-git push || { echo "Error: git push failed"; exit 1; }
+git commit -m "$MESSAGE"
+git push 2> /tmp/pushnorme_error
+
+
+if [[ -s /tmp/pushnorme_error ]]; then
+    echo "Error: Push failed, trying to set upstream..."
+    cmd=$(cat /tmp/pushnorme_error | grep "git push --set-upstream")
+    if [[ -n "$cmd" ]]; then
+        echo "Executing: $cmd"
+        eval "$cmd"
+        rm /tmp/pushnorme_error
+        exit 0
+    else
+        cat /tmp/pushnorme_error
+        rm /tmp/pushnorme_error
+        exit 1
+    fi
+fi
+
