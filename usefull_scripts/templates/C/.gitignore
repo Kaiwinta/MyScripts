@@ -1,0 +1,10 @@
+# Executable name
+DEFINE_NAME
+
+# Object files
+*.o
+*.out
+*.a
+
+# Temporary files
+*.log

@@ -1,0 +1,26 @@
+name: Build Workflow
+
+on:
+  push:
+    branches: dev
+
+jobs:
+
+  check_project_compilation_and_tests:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set TERM variable
+        run: echo "TERM=xterm" >> $GITHUB_ENV
+
+      - name: Launch make re
+        run: make re
+        timeout-minutes: 3
+
+      - name: Launch tests
+        run: make tests_script
+        timeout-minutes: 3
+

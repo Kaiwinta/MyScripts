@@ -38,8 +38,13 @@ debug: CPPFLAGS += -g
 debug: re
 	printf "[%s] - Debug mode enabled\n" $(NAME)
 
-tests_all: re
-	clear
-	./tests/start_test.sh
+tests_script: re
+	if [ -f ./tests/start_test.sh ]; then \
+		clear \
+		./tests/start_test.sh; \
+	else \
+		echo "No tester file in this repo"; \
+		exit 0; \
+	fi
 
-.PHONY: all clean fclean debug re tests_all
+.PHONY: all clean fclean debug re tests_script

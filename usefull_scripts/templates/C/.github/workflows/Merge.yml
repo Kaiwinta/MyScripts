@@ -1,0 +1,39 @@
+name: Merge Dev to Main
+
+on:
+  workflow_run:
+    workflows: ["Build Workflow"]
+    types:
+      - completed
+
+jobs:
+  merge-and-push:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Checkout dev branch
+        run: |
+          git branch -a
+          git checkout dev
+
+      - name: Merge dev into main
+        run: |
+          git fetch origin
+          git checkout main
+          git merge dev --no-ff --commit -m "Merge dev into main"
+          
+      - name: Push changes to main
+        run: |
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
