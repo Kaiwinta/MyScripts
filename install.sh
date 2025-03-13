@@ -35,3 +35,8 @@ add_alias ~/.zshrc style "~/.epitech-coding-style-checker/coding-style.sh . . ; 
 echo "Setting up init_project"
 add_alias ~/.bashrc init_project "$SCRIPT_DIR/$SCRIPT_PATH/init_project.sh"
 add_alias ~/.zshrc init_project "$SCRIPT_DIR/$SCRIPT_PATH/init_project.sh"
+
+echo "Setting up Epitech environment"
+git clone git@github.com:floriangolling/epitech_tester.git ~/.epitech_tester_installer
+chmod 777 ~/.epitech_tester_installer/setup.sh
+sudo ~/.epitech_tester_installer/setup.sh

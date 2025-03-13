@@ -1,0 +1,29 @@
+name: Build Workflow
+
+on:
+  push:
+    branches: dev
+
+jobs:
+
+  check_project_compilation:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Haskell Stack
+        uses: actions/setup-haskell@v1
+        with:
+          ghc-version: "latest"
+
+      - name: Set STACK_ROOT to a writable directory
+        run: |
+          export STACK_ROOT="/tmp/.stack"
+          mkdir -p $STACK_ROOT
+          stack setup --allow-different-user
+
+      - name: Launch make
+        run: make ci
+        timeout-minutes: 5
