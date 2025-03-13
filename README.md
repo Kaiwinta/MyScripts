@@ -46,6 +46,8 @@ The script also ensures a successful build before committing. If the push fails,
 
 ## `init_project.sh` - Project Initialization Script
 
+Create a project based on the Epitech requirements, works as a template but due to the way epitech's repo are created github templates don't work.
+
 ### Usage
 ```bash
 init_project.sh [type] [project_name]
