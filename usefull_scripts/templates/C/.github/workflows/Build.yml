@@ -20,6 +20,16 @@ jobs:
         run: make re
         timeout-minutes: 3
 
+      - name: Check executable
+        run: |
+          if [ -f DEFINE_NAME ]; then
+            echo "Executable does exists"
+          else
+            echo "Executable does not exist"
+            exit 1
+          fi
+        timeout-minutes: 2
+
       - name: Launch tests
         run: make tests_script
         timeout-minutes: 3

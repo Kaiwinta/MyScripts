@@ -26,13 +26,8 @@ read -p "Do you want to setup a git project? (yes/no) " yn
     esac
 
 stack_project() {
-    FOLDER=$1
     BASE_PROJECT_NAME=project-test
 
-    echo "Initializing $FOLDER project: $PROJECT_NAME"
-    cp -r "$TEMPLATE_PATH/$FOLDER/." .
-
-    echo "Renaming project..."
     echo "Renaming Makefile..."
     sed -i 's/DEFINE_NAME/'"$PROJECT_NAME"'/g' Makefile
     sed -i "s/$BASE_PROJECT_NAME/$PROJECT_NAME/g" Makefile
@@ -48,25 +43,11 @@ stack_project() {
 }
 
 c_based_project() {
-    FOLDER=$1
+    echo "Renaming Makefile..."
+    sed -i 's/DEFINE_NAME/'"$PROJECT_NAME"'/g' Makefile
 
-    echo "Creating project structure..."
-    mkdir -p include src
-    if [[ -f "$TEMPLATE_PATH/$FOLDER/Makefile" ]]; then
-        cp "$TEMPLATE_PATH/$FOLDER/Makefile" Makefile
-        sed -i 's/DEFINE_NAME/'"$PROJECT_NAME"'/g' Makefile
-    else
-        echo "Makefile not found in $TEMPLATE_PATH/$FOLDER"
-    fi
-
-    if [[ -d "$TEMPLATE_PATH/$FOLDER/src" ]]; then
-        cp -r "$TEMPLATE_PATH/$FOLDER/src/" src/
-    else
-        echo "src/ not found in $TEMPLATE_PATH/$FOLDER"
-    fi
-
-    touch include/.gitkeep
-    echo "Project '$PROJECT_NAME' initialized successfully!"
+    echo "Renaming Build workflow..."
+    sed -i "s/DEFINE_NAME/$PROJECT_NAME/g" .github/workflows/Build.yml
 }
 
 base_project() {
@@ -74,16 +55,10 @@ base_project() {
 
     echo "Initializing $FOLDER project: $PROJECT_NAME"
 
-    if [[ "$GIT_PROJECT" == true ]]; then
-        echo "Setting up git project..."
-        if [[ -f "$TEMPLATE_PATH/$FOLDER/.gitignore" ]]; then
-            cp "$TEMPLATE_PATH/$FOLDER/.gitignore" .gitignore
-            sed -i 's/DEFINE_NAME/'"$PROJECT_NAME"'/g' .gitignore
-        else
-            echo ".gitignore not found in $TEMPLATE_PATH/$FOLDER"
-        fi
-    fi
+    echo "Copying template..."
+    cp -r "$TEMPLATE_PATH/$FOLDER/." .
 
+    echo "Copy done, renaming files..."
     if [[ "$FOLDER" == "C" ]]; then
         c_based_project C
     elif [[ "$FOLDER" == "CPP" ]]; then
@@ -93,11 +68,25 @@ base_project() {
     fi
 
     if [[ "$GIT_PROJECT" == true ]]; then
+        if [[ -f ".gitignore" ]]; then
+            echo "Renaming .gitignore..."
+            sed -i "s/DEFINE_NAME/$PROJECT_NAME/g" .gitignore
+        fi
+        echo "Project '$PROJECT_NAME' initialized successfully!"
+        if [[ ! -d ".git" ]]; then
+            echo "You are not in a git repository, Push is not possible"
+            exit 1
+        fi
         git add -A
         git commit -m "Initial commit"
         git push
         git checkout -b dev
         git push --set-upstream origin dev
+    else
+        if [[ -f ".gitignore" ]]; then
+            echo "Removing .gitignore file..."
+            rm .gitignore
+        fi
     fi
 
 }
