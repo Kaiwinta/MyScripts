@@ -20,3 +20,9 @@ yay -S github-cli
 gh auth login
 yay -S brave firefox
 yay -S discord
+yay -S stack
+
+yay -S docker daemon
+yay -S docker-compose
+sudo systemctl enable docker
+sudo systemctl start docker
