@@ -39,6 +39,16 @@ if [[ -f Makefile ]]; then
     }
 fi
 
+if [[ git branch | grep "* main" ]]; then
+    echo "Trying to commit on the main branch is a bad habits"
+    echo "Do you want to continue? [y/n]"
+    read -r answer
+    if [[ "$answer" != "y" ]]; then
+        echo "Aborting..."
+        exit 0
+    fi
+fi
+
 git commit -m "$MESSAGE"
 git push 2> /tmp/pushnorme_error
 
