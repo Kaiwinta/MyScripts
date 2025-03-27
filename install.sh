@@ -3,6 +3,7 @@
 SCRIPT_FULL_PATH="$(realpath "$0")"
 SCRIPT_DIR="$(dirname "$SCRIPT_FULL_PATH")"
 SCRIPT_PATH=usefull_scripts
+EXECUTABLES_PATH=executables
 
 add_alias() {
     file="$1"
@@ -21,9 +22,10 @@ add_alias() {
 install_colors() {
     file="$1"
 
-    if grep -q "Color functions" "$file"; then
+    if grep -q "# Color functions" "$file"; then
         echo "Colors already installed in $file"
     else
+        echo "# Color functions" >> "$file"
         echo 'RED() { echo -ne "\033[0;31m"; }' >> "$file"
         echo 'GREEN() { echo -ne "\033[0;32m"; }' >> "$file"
         echo 'YELLOW() { echo -ne "\033[0;33m"; }' >> "$file"
@@ -64,6 +66,10 @@ add_alias ~/.zshrc style "~/.epitech-coding-style-checker/coding-style.sh . . ; 
 echo "Setting up init_project"
 add_alias ~/.bashrc init_project "$SCRIPT_DIR/$SCRIPT_PATH/init_project.sh"
 add_alias ~/.zshrc init_project "$SCRIPT_DIR/$SCRIPT_PATH/init_project.sh"
+
+echo "Setting up Lambdananas"
+add_alias ~/.bashrc lambda "$SCRIPT_DIR/$EXECUTABLES_PATH/lambdananas"
+add_alias ~/.zshrc lambda "$SCRIPT_DIR/$EXECUTABLES_PATH/lambdananas"
 
 
 echo "Setting up Epitech environment"
