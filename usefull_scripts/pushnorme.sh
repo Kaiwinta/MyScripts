@@ -39,7 +39,7 @@ if [[ -f Makefile ]]; then
     }
 fi
 
-if [[ git branch | grep "* main" ]]; then
+if  git branch | grep -q "* main" ; then
     echo "Trying to commit on the main branch is a bad habits"
     echo "Do you want to continue? [y/n]"
     read -r answer
