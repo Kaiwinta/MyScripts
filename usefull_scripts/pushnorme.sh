@@ -3,7 +3,7 @@
 TYPE=$1
 COMMENT=$2
 
-if [[ -z "$COMMENT" ]]; then
+if [[ -z "$COMMENT" && "$TYPE" != "-h" ]]; then
     echo "Usage: pushnorme.sh [type] [comment]"
     echo "[comment] is missing"
     exit 1
