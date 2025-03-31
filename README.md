@@ -76,9 +76,15 @@ For Haskell projects, it updates `.cabal` and `package.yaml` files accordingly.
 
 ---
 
+## ArchSetup - Base plugin and software when redumping
+
+Not a lot to say about it, it install the base layer of software neede to work
+
+
 ## Additional Tools
 - **`epitest_docker`**: A Dockerized testing environment.
 - **`pushnorme_error`**: Logs errors when `pushnorme.sh` fails.
+- **`HyDeWallpaper`**: Move a wallpaper into the selected theme folder for HyDe
 
 ## Contributing
 Feel free to submit pull requests or open issues for improvements.
