@@ -16,11 +16,13 @@ case "$TYPE" in
     "-s") MESSAGE="[style]: $COMMENT" ;;
     "-rm") MESSAGE="[del]: $COMMENT" ;;
     "-t") MESSAGE="[test]: $COMMENT" ;;
+    "-p") MESSAGE="[perf]: $COMMENT" ;;
+    "-r") MESSAGE="[refactor]: $COMMENT" ;;
     "-b") MESSAGE="[build]: $COMMENT" ;;
     "-m") MESSAGE="[merge]: $COMMENT" ;;
     "-h") 
         echo "Usage: pushnorme.sh [type] [comment]"
-        echo "type: -f fix, -d doc, -rm del, -s style, -t test, -b build, -m merge"
+        echo "type: -f fix, -d doc, -rm del, -s style, -t test, -b build, -m merge -p perf, -r refactor, -h help"
         echo "type: -h help"
         echo "type: feature being the default (Use pushnorme.sh . [comment])"
         echo "comment: comment of the commit"

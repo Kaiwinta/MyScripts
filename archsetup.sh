@@ -29,6 +29,7 @@ yay -S discord
 
 echo "Installing Stack"
 yay -S stack
+yay -S ghc
 
 yay -S docker daemon
 yay -S docker-compose

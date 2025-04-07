@@ -78,7 +78,7 @@ base_project() {
             exit 1
         fi
         git add -A
-        git commit -m "Initial commit"
+        git commit -m "🎉 Initial commit 🎉"
         git push
         git checkout -b dev
         git push --set-upstream origin dev
