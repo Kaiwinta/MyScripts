@@ -1,4 +1,4 @@
-name: Merge Dev to Main
+name: Merge Dev to Main and Deploy Branches
 
 on:
   workflow_run:
@@ -35,5 +35,17 @@ jobs:
       - name: Push changes to main
         run: |
           git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Merge dev into deploy
+        run: |
+          git fetch origin
+          git checkout deploy
+          git merge dev --no-ff --commit -m "Merge dev into deploy"
+            
+      - name: Push changes to deploy
+        run: |
+          git push origin deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
