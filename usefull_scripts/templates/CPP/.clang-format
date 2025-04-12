@@ -1,0 +1,16 @@
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+BraceWrapping:
+  AfterControlStatement: false
+  AfterFunction: false
+  AfterClass: false
+  AfterEnum: false
+  AfterNamespace: false
+  AfterStruct: false
+ColumnLimit: 0
+BreakBeforeBraces: Attach
+AllowShortBlocksOnASingleLine: true
+BinPackArguments: false
+BinPackParameters: false
