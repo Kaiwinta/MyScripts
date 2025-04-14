@@ -9,16 +9,15 @@ EXEC = DEFINE_NAME
 
 STACKPROJET = project-test
 
-STACKFLAGS = --allow-different-user
+SFLAGS = --allow-different-user
 
-BINPATHFLAGS = --local-install-root --stack-yaml "stack.yaml"
+BPATHFLAG = --local-install-root --stack-yaml "stack.yaml"
 
-BINPATH := $(shell stack path $(BINPATHFLAGS) --allow-different-user )/bin/$(STACKPROJET)-exe
-
+BINPATH := $(shell stack path $(BPATHFLAG) $(SFLAGS) )/bin/$(STACKPROJET)-exe
 all: $(EXEC)
 
 $(EXEC):
-	stack build $(STACKFLAGS)
+	stack build $(SFLAGS)
 	@if [ -f "$(BINPATH)" ]; then \
 		cp $(BINPATH) $(EXEC); \
 	else \
@@ -27,30 +26,30 @@ $(EXEC):
 	fi
 
 clean:
-	stack clean $(STACKFLAGS)
+	stack clean $(SFLAGS)
 
 fclean: clean
-	stack clean $(STACKFLAGS) --full
+	stack clean $(SFLAGS) --full
 	rm -f $(EXEC)
 
 re: fclean all
 
 run_tests:
-	stack test $(STACKFLAGS) --coverage
+	stack test $(SFLAGS) --coverage
 
 generate_report:
 	stack hpc report --all --destdir test/coverage
 
 tests_run: re run_tests generate_report
 
-ci: STACKFLAGS += --stack-root /tmp/.stack
+ci: SFLAGS += --stack-root /tmp/.stack
 ci:
 	mkdir -p /tmp/.stack
-	stack build $(STACKFLAGS)
-	stack test $(STACKFLAGS) --coverage
-	stack hpc report --all --destdir test/coverage $(STACKFLAGS)
+	stack build $(SFLAGS)
+	stack test $(SFLAGS) --coverage
+	stack hpc report --all --destdir test/coverage $(SFLAGS)
 
-silent: STACKFLAGS += --silent
+silent: SFLAGS += --silent
 silent: re
 
 .PHONY: all clean fclean re tests_run silent ci
