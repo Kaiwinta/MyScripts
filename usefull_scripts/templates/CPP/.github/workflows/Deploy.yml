@@ -22,7 +22,9 @@ jobs:
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Install Dependencies
-        run: sudo apt-get update
+        run: |
+          sudo apt-get update
+          xargs -a .apt-dependencies sudo apt-get install -y
 
       - name: Compile Code
         run: make
@@ -40,11 +42,6 @@ jobs:
         with:
           tag_name: ${{ env.TAG }}
           files: |
-            lib/arcade_ncurses.so
-            lib/arcade_sdl2.so
-            lib/arcade_sfml.so
-            lib/arcade_snake.so
-            lib/arcade_tron.so
-            arcade
+            DEFINE_NAME
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

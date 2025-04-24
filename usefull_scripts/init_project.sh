@@ -48,6 +48,11 @@ c_based_project() {
 
     echo "Renaming Build workflow..."
     sed -i "s/DEFINE_NAME/$PROJECT_NAME/g" .github/workflows/Build.yml
+
+    if [[ -f ".github/workflows/Deploy.yml" ]]; then
+        echo "Renaming Deploy workflow..."
+        sed -i "s/DEFINE_NAME/$PROJECT_NAME/g" .github/workflows/Deploy.yml
+    fi
 }
 
 base_project() {
@@ -80,6 +85,9 @@ base_project() {
         git add -A
         git commit -m "🎉 Initial commit 🎉"
         git push
+        echo "setting up deploy and dev branches..."
+        git checkout -b deploy
+        git push --set-upstream origin deploy
         git checkout -b dev
         git push --set-upstream origin dev
     else

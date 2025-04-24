@@ -16,6 +16,14 @@ jobs:
       - name: Set TERM variable
         run: echo "TERM=xterm" >> $GITHUB_ENV
 
+      - name: Mark Repository as Safe
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+    
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          xargs -a .apt-dependencies sudo apt-get install -y
+
       - name: Launch make re
         run: make re
         timeout-minutes: 3
