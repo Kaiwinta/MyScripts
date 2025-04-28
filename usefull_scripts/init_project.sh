@@ -86,8 +86,10 @@ base_project() {
         git commit -m "🎉 Initial commit 🎉"
         git push
         echo "setting up deploy and dev branches..."
-        git checkout -b deploy
-        git push --set-upstream origin deploy
+        if [[ -f ".github/workflows/Deploy.yml" ]]; then
+            git checkout -b deploy
+            git push --set-upstream origin deploy
+        fi
         git checkout -b dev
         git push --set-upstream origin dev
     else

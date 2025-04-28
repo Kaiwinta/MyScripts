@@ -1,0 +1,47 @@
+name: Deploy Shared Library and Executable
+
+on:
+  push:
+    branches:
+      - deploy
+  workflow_run:
+    workflows: ["Merge Dev to Main and Deploy Branches"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Mark Repository as Safe
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          xargs -a .apt-dependencies sudo apt-get install -y
+
+      - name: Compile Code
+        run: make
+
+      - name: Create Tag
+        id: create_tag
+        run: |
+          TAG="v1.0.${{ github.run_number }}"  # Generates a unique version
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          git tag $TAG
+          git push origin $TAG
+
+      - name: Upload to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          files: |
+            DEFINE_NAME
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
