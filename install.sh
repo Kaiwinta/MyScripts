@@ -13,7 +13,7 @@ source ./setup_scripts/setup_arch.sh
 
 SCRIPT_FULL_PATH="$(realpath "$0")"
 SCRIPT_DIR="$(dirname "$SCRIPT_FULL_PATH")"
-SCRIPT_PATH=usefull_scripts
+SCRIPT_PATH=scripts
 TEMPLATES_PATH=Epitech-templates
 EXECUTABLES_PATH=executables
 
@@ -60,8 +60,6 @@ case $yn in
         echo "Cloning epitech-templates"
         git clone https://github.com/Kaiwinta/Epitech-templates.git Epitech-templates
         echo "Setting up init_project"
-        add_alias ~/.bashrc init_project "$SCRIPT_DIR/$TEMPLATES_PATH/init_project.sh"
-        add_alias ~/.zshrc init_project "$SCRIPT_DIR/$TEMPLATES_PATH/init_project.sh"
 esac
 
 
