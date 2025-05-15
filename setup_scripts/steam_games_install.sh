@@ -14,15 +14,26 @@ declare -A gameIdList=(
     ["Civilization V"]=8930
 )
 
+declare -A freeGameList=(
+    ["Cs2"]=1
+)
+
 installGamesScript="/tmp/steamcmd_script.txt"
+installedGames=()
 
 generateSteamScript() {
-    echo "$1" > "$installGamesScript"  # $1 is login line
+    LOGIN_LINE="$1"
+    echo "$LOGIN_LINE" > "$installGamesScript"
+    # If the login is anonymous, we can only install free games
+    if [ "$LOGIN_LINE" == "login anonymous" ]; then
+        gameList=("${!freeGameList[@]}")
+    fi
     for game in "${gameList[@]}"; do
         read -p "Do you want to install $game? (y/n): " INSTALL
         if [ "$INSTALL" == "y" ]; then
             GAME_ID="${gameIdList[$game]}"
             if [ -n "$GAME_ID" ]; then
+                installedGames+=("$game")
                 echo "app_update $GAME_ID validate" >> "$installGamesScript"
             else
                 echo "Game ID for $game not found"
@@ -30,6 +41,26 @@ generateSteamScript() {
         fi
     done
     echo "quit" >> "$installGamesScript"
+}
+
+add_desktop_files() {
+    for game in "${installedGames[@]}"; do
+        GAME_ID="${gameIdList[$game]}"
+        if [ -n "$GAME_ID" ]; then
+            echo "Creating desktop file for $game"
+            DESKTOP_FILE="$HOME/.local/share/applications/$game.desktop"
+            echo "[Desktop Entry]"              > "$DESKTOP_FILE"
+            echo "Name=$game"                   >> "$DESKTOP_FILE"
+            echo "Comment=Play $game on Steam"  >> "$DESKTOP_FILE"
+            echo "Exec=steam steam://rungameid/$GAME_ID" >> "$DESKTOP_FILE"
+            echo "Icon=steam_icon_$GAME_ID"      >> "$DESKTOP_FILE"
+            echo "Terminal=false"               >> "$DESKTOP_FILE"
+            echo "Type=Application"             >> "$DESKTOP_FILE"
+            echo "Categories=Game;"             >> "$DESKTOP_FILE"
+        else
+            echo "Game ID for $game not found, skipping desktop file creation."
+        fi
+    done
 }
 
 setup_steam() {
@@ -49,4 +80,5 @@ setup_steam() {
     echo "Starting game installation..."
     steamcmd +runscript "$installGamesScript"
     rm "$installGamesScript"
+    add_desktop_files
 }
