@@ -1,50 +1,42 @@
 ##
 ## EPITECH PROJECT, 2024
-## nanotekSpice
+## DEFINE_NAME
 ## File description:
 ## Makefile
 ##
 
 .SILENT:
 
-SRC = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp)
-
-# All the o in a build to be cleaner
-OBJ = $(SRC:src/%.cpp=build/%.o)
-
-CPPFLAGS += -Wall -Wextra -Werror -I./include
-
+BUILD_DIR = build
 NAME = DEFINE_NAME
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	g++ $(CPPFLAGS) -o $(NAME) $(OBJ)
-	printf "[%s] - Successfully compiled\n" $(NAME)
-
-build/%.o: src/%.cpp
-	mkdir -p $(dir $@)
-	g++ $(CPPFLAGS) -c $< -o $@
+$(NAME):
+	mkdir -p $(BUILD_DIR)
+	cd $(BUILD_DIR) && cmake .. > /dev/null
+	cd $(BUILD_DIR) && cmake --build . > /dev/null
+	cp $(BUILD_DIR)/$(NAME) . > /dev/null 2>&1 || true
+	echo "[✔] - Build complete: $(NAME)"
 
 clean:
-	rm -rf build/
+	rm -rf $(BUILD_DIR)/*
+	rm -f $(NAME)
+	echo "[✔] - Clean complete"
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -rf $(BUILD_DIR)
+	echo "[✔] - Full clean complete"
 
 re: fclean all
 
-debug: CPPFLAGS += -g
-debug: re
-	printf "[%s] - Debug mode enabled\n" $(NAME)
-
 tests_script: re
 	if [ -f ./tests/start_test.sh ]; then \
-		clear \
+		clear; \
 		./tests/start_test.sh; \
 	else \
 		echo "No tester file in this repo"; \
 		exit 0; \
 	fi
 
-.PHONY: all clean fclean debug re tests_script
+.PHONY: all clean fclean re tests_script

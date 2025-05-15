@@ -51,6 +51,11 @@ c_based_project() {
     echo "Renaming Makefile..."
     sed -i 's/DEFINE_NAME/'"$PROJECT_NAME"'/g' Makefile
 
+    if [[ "$1" == "CPP" ]]; then
+        echo "Renaming CMakeLists.txt..."
+        sed -i 's/DEFINE_NAME/'"$PROJECT_NAME"'/g' CMakeLists.txt
+    fi
+
     echo "Copying Workflows file and dependencies"
     cp -r "$WORKFLOWTEMPLATE_PATH/C-CPP/." .
 
