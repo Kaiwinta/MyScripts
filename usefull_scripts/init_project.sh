@@ -7,6 +7,8 @@ SCRIPT_FULL_PATH="$(realpath "$0")"
 SCRIPT_DIR="$(dirname "$SCRIPT_FULL_PATH")"
 
 TEMPLATE_PATH="$SCRIPT_DIR/templates"
+REPOTEMPLATE_PATH="$TEMPLATE_PATH/repository"
+WORKFLOWTEMPLATE_PATH="$TEMPLATE_PATH/workflows"
 
 GIT_PROJECT=false
 
@@ -28,6 +30,9 @@ read -p "Do you want to setup a git project? (yes/no) " yn
 stack_project() {
     BASE_PROJECT_NAME=project-test
 
+    echo "Copying Workflows file and dependencies"
+    cp -r "$WORKFLOWTEMPLATE_PATH/Hs/." 
+
     echo "Renaming Makefile..."
     sed -i 's/DEFINE_NAME/'"$PROJECT_NAME"'/g' Makefile
     sed -i "s/$BASE_PROJECT_NAME/$PROJECT_NAME/g" Makefile
@@ -46,6 +51,14 @@ c_based_project() {
     echo "Renaming Makefile..."
     sed -i 's/DEFINE_NAME/'"$PROJECT_NAME"'/g' Makefile
 
+    if [[ "$1" == "CPP" ]]; then
+        echo "Renaming CMakeLists.txt..."
+        sed -i 's/DEFINE_NAME/'"$PROJECT_NAME"'/g' CMakeLists.txt
+    fi
+
+    echo "Copying Workflows file and dependencies"
+    cp -r "$WORKFLOWTEMPLATE_PATH/C-CPP/." .
+
     echo "Renaming Build workflow..."
     sed -i "s/DEFINE_NAME/$PROJECT_NAME/g" .github/workflows/Build.yml
 
@@ -61,7 +74,7 @@ base_project() {
     echo "Initializing $FOLDER project: $PROJECT_NAME"
 
     echo "Copying template..."
-    cp -r "$TEMPLATE_PATH/$FOLDER/." .
+    cp -r "$REPOTEMPLATE_PATH/$FOLDER/." .
 
     echo "Copy done, renaming files..."
     if [[ "$FOLDER" == "C" ]]; then

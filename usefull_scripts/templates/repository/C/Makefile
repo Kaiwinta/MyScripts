@@ -1,6 +1,6 @@
 ##
 ## EPITECH PROJECT, 2025
-## Scripts
+## DEFINE_NAME
 ## File description:
 ## Makefile
 ##
