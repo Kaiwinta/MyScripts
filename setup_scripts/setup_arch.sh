@@ -29,4 +29,7 @@ setup_arch() {
     installIfNeeded docker-compose
     sudo systemctl enable docker
     sudo systemctl start docker
+
+    echo "Installing ScreenRecorder"
+    installIfNeeded wf-recorder
 }

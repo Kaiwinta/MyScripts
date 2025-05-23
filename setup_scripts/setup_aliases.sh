@@ -41,6 +41,9 @@ setup_aliases() {
     add_alias ~/.bashrc c-format "find . -name '*.cpp' -exec clang-format -i {} +"
     add_alias ~/.zshrc c-format "find . -name '*.cpp' -exec clang-format -i {} +"
 
+    echo "Adding alias for screenrecorder"
+    add_alias ~/.bashrc screenrecorder "wf-recorder -f ~/Videos/recording-\$(date +%Y-%m-%d_%H-%M-%S).mp4"
+    add_alias ~/.zshrc screenrecorder "wf-recorder -f ~/Videos/recording-\$(date +%Y-%m-%d_%H-%M-%S).mp4"
 
     echo "Adding alias for Epitech environment"
     if [[ ! -d ~/.epitech_tester_installer ]]; then

@@ -14,7 +14,7 @@ add_alias() {
         echo -e "\033[0;33mAlias '$alias_name' already exists\033[0;0m in $file"
     else
         echo -n "Adding alias '$alias_name' to $file"
-        echo "alias $alias_name=\"$alias_command\"" >> "$file"
+        echo "alias $alias_name='$alias_command'" >> "$file"
         echo -e "\rAdding alias '$alias_name' to $file\033[35;m done\033[0m\n"
     fi
 }
