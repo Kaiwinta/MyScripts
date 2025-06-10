@@ -36,7 +36,7 @@ esac
 if [[ -f Makefile && (-z "$FORCE" || "$FORCE" != "--force") ]]; then
     make fclean && make -j16 || { 
         echo "Make failed, attempting full clean rebuild..."
-        make fclean && make -j16 && make fclean || {
+        make fclean && make re || {
             echo "Error: Build failed even after full clean"
             exit 1
         }
