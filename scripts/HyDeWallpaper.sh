@@ -1,15 +1,15 @@
 #/bin/bash
 
-IMGAEPATH=$1
-if [ -z "$IMGAEPATH" ]; then
+IMAGEPATH=$1
+if [ -z "$IMAGEPATH" ]; then
     echo "Usage: $0 <image_path>"
     exit 1
 fi
-if [ ! -f "$IMGAEPATH" ]; then
-    echo "File not found: $IMGAEPATH"
+if [ ! -f "$IMAGEPATH" ]; then
+    echo "File not found: $IMAGEPATH"
     exit 1
 fi
-IMAGENAME=$(basename "$IMGAEPATH")
+IMAGENAME=$(basename "$IMAGEPATH")
 
 USERNAME=$(whoami)
 if [ -z "$USERNAME" ]; then
@@ -69,6 +69,6 @@ if [ ! -d "/home/$USERNAME/.config/hyde/themes/$THEME" ]; then
     exit 1
 fi
 
-cp "$IMGAEPATH" "/home/$USERNAME/.config/hyde/themes/$THEME/$IMAGENAME"
+cp "$IMAGEPATH" "/home/$USERNAME/.config/hyde/themes/$THEME/$IMAGENAME"
 
 echo "Image copied to theme directory: /home/$USERNAME/.config/hyde/themes/$THEME/$IMAGENAME"

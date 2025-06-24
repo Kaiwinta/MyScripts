@@ -37,6 +37,10 @@ setup_aliases() {
     add_alias ~/.bashrc lambda "$SCRIPT_DIR/$EXECUTABLES_PATH/lambdananas"
     add_alias ~/.zshrc lambda "$SCRIPT_DIR/$EXECUTABLES_PATH/lambdananas"
 
+    echo "Adding alias for Wallpaper"
+    add_alias ~/.bashrc wallpaper "$SCRIPT_DIR/$SCRIPT_PATH/HyDeWallpaper.sh"
+    add_alias ~/.zshrc wallpaper "$SCRIPT_DIR/$SCRIPT_PATH/HyDeWallpaper.sh"
+
     echo "Adding alias for clang-format alias"
     add_alias ~/.bashrc c-format "find . -name '*.cpp' -exec clang-format -i {} +"
     add_alias ~/.zshrc c-format "find . -name '*.cpp' -exec clang-format -i {} +"
