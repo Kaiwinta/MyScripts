@@ -24,6 +24,12 @@ setup_arch() {
     installIfNeeded stack
     installIfNeeded ghc
 
+    echo "Installing CMake"
+    installIfNeeded cmake
+
+    echo "Installing Valgrind"
+    installIfNeeded valgrind
+
     echo "Installing Docker"
     installIfNeeded docker daemon
     installIfNeeded docker-compose
