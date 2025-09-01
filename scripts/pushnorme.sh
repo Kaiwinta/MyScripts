@@ -11,16 +11,16 @@ if [[ -z "$COMMENT" && "$TYPE" != "-h" ]]; then
 fi
 
 case "$TYPE" in
-    ".") MESSAGE="[feat]: $COMMENT" ;;
-    "-f") MESSAGE="[fix]: $COMMENT" ;;
-    "-d") MESSAGE="[doc]: $COMMENT" ;;
-    "-s") MESSAGE="[style]: $COMMENT" ;;
-    "-rm") MESSAGE="[del]: $COMMENT" ;;
-    "-t") MESSAGE="[test]: $COMMENT" ;;
-    "-p") MESSAGE="[perf]: $COMMENT" ;;
-    "-r") MESSAGE="[refactor]: $COMMENT" ;;
-    "-b") MESSAGE="[build]: $COMMENT" ;;
-    "-m") MESSAGE="[merge]: $COMMENT" ;;
+    ".") MESSAGE="feat: $COMMENT" ;;
+    "-f") MESSAGE="fix: $COMMENT" ;;
+    "-d") MESSAGE="doc: $COMMENT" ;;
+    "-s") MESSAGE="style: $COMMENT" ;;
+    "-rm") MESSAGE="del: $COMMENT" ;;
+    "-t") MESSAGE="test: $COMMENT" ;;
+    "-p") MESSAGE="perf: $COMMENT" ;;
+    "-r") MESSAGE="refactor: $COMMENT" ;;
+    "-b") MESSAGE="build: $COMMENT" ;;
+    "-m") MESSAGE="merge: $COMMENT" ;;
     "-h") 
         echo "Usage: pushnorme.sh [type] [comment] [--force]"
         echo "type: -f fix, -d doc, -rm del, -s style, -t test, -b build, -m merge -p perf, -r refactor, -h help"
