@@ -30,7 +30,7 @@ case "$TYPE" in
         echo "force: --force to force the commit even if the Makefile fails"
         exit 0
         ;;
-    *) MESSAGE="[feat]: $COMMENT" ;;
+    *) MESSAGE="feat: $COMMENT" ;;
 esac
 
 if [[ -f Makefile && (-z "$FORCE" || "$FORCE" != "--force") ]]; then

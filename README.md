@@ -91,5 +91,3 @@ Feel free to submit pull requests or open issues for improvements.
 
 ## License
 This project is licensed under [MIT License](LICENSE).
-
-caca
