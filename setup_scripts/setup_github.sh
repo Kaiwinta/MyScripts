@@ -6,6 +6,7 @@
 ##
 
 EMAIL=""
+USERNAME=""
 
 getemail () {
     echo "Enter your email address:"
