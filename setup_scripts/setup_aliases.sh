@@ -41,9 +41,13 @@ setup_aliases() {
     add_alias ~/.bashrc wallpaper "$SCRIPT_DIR/$SCRIPT_PATH/HyDeWallpaper.sh"
     add_alias ~/.zshrc wallpaper "$SCRIPT_DIR/$SCRIPT_PATH/HyDeWallpaper.sh"
 
+    echo "Adding alias for gitbranchclean"
+    add_alias ~/.bashrc gitbranchclean "$SCRIPT_DIR/$SCRIPT_PATH/gitbranchclean.sh"
+    add_alias ~/.zshrc gitbranchclean "$SCRIPT_DIR/$SCRIPT_PATH/gitbranchclean.sh"
+
     echo "Adding alias for clang-format alias"
-    add_alias ~/.bashrc c-format "find . -name '*.cpp' -exec clang-format -i {} +"
-    add_alias ~/.zshrc c-format "find . -name '*.cpp' -exec clang-format -i {} +"
+    add_alias ~/.bashrc c-format "find . -name '*.cpp' -o -name '*.hpp' -exec clang-format -i {} +"
+    add_alias ~/.zshrc c-format "find . -name '*.cpp' -o -name '*.hpp' -exec clang-format -i {} +"
 
     echo "Adding alias for screenrecorder"
     add_alias ~/.bashrc screenrecorder "wf-recorder -f ~/Videos/recording-\$(date +%Y-%m-%d_%H-%M-%S).mp4"
