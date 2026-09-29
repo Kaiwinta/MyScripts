@@ -27,6 +27,9 @@ setup_arch() {
     echo "Installing CMake"
     installIfNeeded cmake
 
+    echo "Installing Azure Cli"
+    installIfNeeded azure-cli
+
     echo "Installing Valgrind"
     installIfNeeded valgrind
 
