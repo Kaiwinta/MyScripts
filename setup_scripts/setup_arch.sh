@@ -20,6 +20,9 @@ setup_arch() {
     echo "Installing Discord"
     installIfNeeded discord
 
+    echo "Installing Bruno"
+    installIfNeeded bruno
+
     echo "Installing Stack"
     installIfNeeded stack
     installIfNeeded ghc
