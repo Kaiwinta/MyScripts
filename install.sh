@@ -9,6 +9,7 @@ source ./setup_scripts/setup_aliases.sh
 source ./setup_scripts/setup_github.sh
 source ./setup_scripts/setup_colors.sh
 source ./setup_scripts/setup_arch.sh
+source ./setup_scripts/setup_hyprland_config.sh
 
 
 SCRIPT_FULL_PATH="$(realpath "$0")"
@@ -23,6 +24,14 @@ case $yn in
     yes | Y | y | Yes | YES)
         echo "Installing all arch packages"
         setup_arch
+        ;;
+esac
+
+read -p "Do you want to use the hyprland config? (yes/no) " yn
+case $yn in
+    yes | Y | y | Yes | YES)
+        echo "Copying the config"
+        setup_hyprland_config
         ;;
 esac
 
