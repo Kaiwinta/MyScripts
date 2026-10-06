@@ -38,8 +38,8 @@ hl.config({
 		active_opacity = 1,
 		fullscreen_opacity = 1,
 		inactive_opacity = 0.75,
-		rounding = 30,
-		rounding_power = 1,
+		rounding = 15,
+		rounding_power = 2,
 		blur = {
 			enabled = true,
 			contrast = 1,
@@ -77,6 +77,12 @@ hl.bind(hyde.config.modifiers.main .. " + B", hl.dsp.layout("swapwithmaster"), {
 
 -- Remove the bind for the split layout, because it's dwindle and not master
 hl.unbind(hyde.config.modifiers.main .. " + J")
+
+
+hl.unbind("CTRL + ALT + DELETE") -- Remove the bind for the logout, because I don't use it
+
+_F = {description = "[Window Management] logout menu"}
+hl.bind(hyde.config.modifiers.main .. " + BACKSPACE", hl.dsp.exec_cmd(hyde.sh.session.logout.launcher()), _F)
 
 
 -- Unbinding all the bind for the workspaces that are after the workspace 5
