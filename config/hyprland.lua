@@ -17,7 +17,7 @@ end
 hl.config({
     input = {
 		kb_layout = "fr",
-		natural_scroll = true,
+		natural_scroll = false,
 		touchpad = {
 			natural_scroll = true,
 		},
@@ -125,12 +125,6 @@ for i = 1, 10 do
         )
     end
 end
-
--- On startup, launch the terminal and connect to ProtonVPN
-hl.on("hyprland.start", function()
-    hl.exec_cmd(terminal)
-    hl.exec_cmd("protonvpn connect")
-end)
 
 -- Your Hyprland configuration. HyDE never overwrites this file.
 --
